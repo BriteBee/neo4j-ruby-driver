@@ -16,15 +16,18 @@ module Neo4j
         def initialize(bolt_config, logger)
           @logger = logger
           @funcs = []
-          bolt_log = Bolt::Log.create(nil)
-          %i[error warning info debug].each do |method|
-            Bolt::Log.send("set_#{method}_func", bolt_log, func(method))
-          end
-          check_error Bolt::Config.set_log(bolt_config, bolt_log)
+          # TODO UNDO
+          puts "TEMP WORKAROUND: Not calling set logger functions; Logger has deadlock issue with connection acquire/release"
+          # bolt_log = Bolt::Log.create(nil)
+          # %i[error warning info debug].each do |method|
+          #   Bolt::Log.send("set_#{method}_func", bolt_log, func(method))
+          # end
+          # check_error Bolt::Config.set_log(bolt_config, bolt_log)
         end
 
         def func(method)
-          Proc.new { |_ptr, message| @logger.send(method, message) }.tap(&@funcs.method(:<<))
+          # TODO UNDO
+          # Proc.new { |_ptr, message| @logger.send(method, message) }.tap(&@funcs.method(:<<))
         end
       end
     end
