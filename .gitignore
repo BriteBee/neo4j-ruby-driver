@@ -14,7 +14,6 @@
 *.lock
 *.jar
 *.gem
-#*.gemspec # keep .gemspec file so can use directly as gemsource
 .env
 .idea/
 db/
